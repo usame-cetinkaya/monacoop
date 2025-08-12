@@ -17,10 +17,24 @@ function App() {
   const [editorLanguage, setEditorLanguage] = useState(
     localStorage.getItem("editorLanguage") || "javascript",
   );
-  const editorThemes = ["system", "vs", "vs-dark"];
+  const editorThemes = {
+    System: "system",
+    Light: "vs",
+    Dark: "vs-dark",
+  };
   const [editorTheme, setEditorTheme] = useState(
     localStorage.getItem("editorTheme") || "system",
   );
+  const [systemPrefersDark, setSystemPrefersDark] = useState(
+    window.matchMedia("(prefers-color-scheme: dark)").matches,
+  );
+  const actualTheme =
+    editorTheme === "system"
+      ? systemPrefersDark
+        ? "vs-dark"
+        : "vs"
+      : editorTheme;
+  const isDarkMode = actualTheme === "vs-dark";
   const [code, setCode] = useState<string | undefined>(
     localStorage.getItem("code") || "",
   );
@@ -74,6 +88,24 @@ function App() {
     localStorage.setItem("editorTheme", editorTheme);
   }, [editorTheme]);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (e: MediaQueryListEvent) => {
+      setSystemPrefersDark(e.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
+
   return (
     <>
       <main className="h-full flex flex-col gap-4">
@@ -84,7 +116,7 @@ function App() {
             language={editorLanguage}
             value={code}
             onChange={setCode}
-            theme={editorTheme}
+            theme={actualTheme}
             options={{
               renderWhitespace: "all",
               useTabStops: false,

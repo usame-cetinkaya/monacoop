@@ -13,7 +13,7 @@ interface ThemeSelectorProps {
   setOpen: (open: boolean) => void;
   editorTheme: string;
   setEditorTheme: (language: string) => void;
-  editorThemes: string[];
+  editorThemes: Record<string, string>;
 }
 export default function ThemeSelector({
   open,
@@ -38,9 +38,9 @@ export default function ThemeSelector({
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Themes</SelectLabel>
-          {editorThemes.map((theme) => (
-            <SelectItem key={theme} value={theme}>
-              {theme}
+          {Object.entries(editorThemes).map(([displayName, value]) => (
+            <SelectItem key={value} value={value}>
+              {displayName}
             </SelectItem>
           ))}
         </SelectGroup>
