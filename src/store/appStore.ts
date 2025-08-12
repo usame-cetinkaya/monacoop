@@ -52,7 +52,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   code: localStorage.getItem("code") || "",
   info: "Ready",
   isError: false,
-  customCode: localStorage.getItem("customCode") || "",
+  customCode: localStorage.getItem("customCode") || customCodeTemplate,
   customCodeEditorOpen: false,
   setEditor: (
     editor: import("monaco-editor").editor.IStandaloneCodeEditor | null,
