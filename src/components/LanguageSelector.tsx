@@ -1,4 +1,6 @@
-import { Check, ChevronsUpDown } from "lucide-react";
+import { useEffect } from "react";
+import { useAppStore } from "@/store/appStore.ts";
+import { cn } from "@/lib/utils.ts";
 import { Button } from "@/components/ui/button.tsx";
 import {
   Command,
@@ -13,22 +15,23 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover.tsx";
-import { cn } from "@/lib/utils.ts";
+import { Check, ChevronsUpDown } from "lucide-react";
 
-interface LanguageSelectorProps {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  editorLanguage: string;
-  setEditorLanguage: (language: string) => void;
-  editorLanguages: string[];
-}
-export default function LanguageSelector({
-  open,
-  setOpen,
-  editorLanguage,
-  setEditorLanguage,
-  editorLanguages,
-}: LanguageSelectorProps) {
+export default function LanguageSelector() {
+  const {
+    languageSelectorOpen: open,
+    setLanguageSelectorOpen: setOpen,
+    editor,
+    editorLanguage,
+    setEditorLanguage,
+    editorLanguages,
+  } = useAppStore();
+
+  useEffect(() => {
+    if (!editor) return;
+
+    if (!open) editor.focus();
+  }, [editor, open]);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>

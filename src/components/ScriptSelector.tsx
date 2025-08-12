@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAppStore } from "@/store/appStore.ts";
 import { BoopScriptManager } from "@/lib/scriptManager.ts";
 import { getState } from "@/lib/scriptState.ts";
 import { analyzeClipboardAndSuggestScripts } from "@/lib/scriptSuggestions.ts";
@@ -10,13 +11,6 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command.tsx";
-
-interface ScriptSelectorProps {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  editor: import("monaco-editor").editor.IStandaloneCodeEditor | null;
-  setMessage: (message: string, isError?: boolean) => void;
-}
 
 interface ScriptInfo {
   name: string;
@@ -30,16 +24,23 @@ interface ScriptInfo {
   suggestionReasons?: string[];
 }
 
-export default function ScriptSelector({
-  open,
-  setOpen,
-  editor,
-  setMessage,
-}: ScriptSelectorProps) {
+export default function ScriptSelector() {
+  const {
+    scriptSelectorOpen: open,
+    setScriptSelectorOpen: setOpen,
+    editor,
+    setMessage,
+  } = useAppStore();
+
   const [scripts, setScripts] = useState<ScriptInfo[]>([]);
 
   useEffect(() => {
-    if (!open || !editor) return;
+    if (!editor) return;
+
+    if (!open) {
+      editor.focus();
+      return;
+    }
 
     loadScripts()
       .then(() => setMessage("Scripts loaded"))
@@ -117,20 +118,8 @@ export default function ScriptSelector({
       <CommandInput placeholder="Type a command or search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
-        <ScriptGroup
-          title="Suggested scripts"
-          scripts={suggestedScripts}
-          setOpen={setOpen}
-          editor={editor}
-          setMessage={setMessage}
-        />
-        <ScriptGroup
-          title="Other scripts"
-          scripts={otherScripts}
-          setOpen={setOpen}
-          editor={editor}
-          setMessage={setMessage}
-        />
+        <ScriptGroup title="Suggested scripts" scripts={suggestedScripts} />
+        <ScriptGroup title="Other scripts" scripts={otherScripts} />
       </CommandList>
     </CommandDialog>
   );
@@ -139,18 +128,13 @@ export default function ScriptSelector({
 interface ScriptGroupProps {
   title: string;
   scripts: ScriptInfo[];
-  setOpen: (open: boolean) => void;
-  editor: import("monaco-editor").editor.IStandaloneCodeEditor;
-  setMessage: (message: string, isError?: boolean) => void;
 }
 
-function ScriptGroup({
-  title,
-  scripts,
-  setOpen,
-  editor,
-  setMessage,
-}: ScriptGroupProps) {
+function ScriptGroup({ title, scripts }: ScriptGroupProps) {
+  const { setScriptSelectorOpen: setOpen, editor, setMessage } = useAppStore();
+
+  if (!editor) return null;
+
   if (scripts.length === 0) return null;
 
   return (

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useAppStore } from "@/store/appStore.ts";
 import {
   Select,
   SelectContent,
@@ -8,20 +10,26 @@ import {
   SelectValue,
 } from "@/components/ui/select.tsx";
 
-interface ThemeSelectorProps {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  editorTheme: string;
-  setEditorTheme: (language: string) => void;
-  editorThemes: Record<string, string>;
-}
-export default function ThemeSelector({
-  open,
-  setOpen,
-  editorTheme,
-  setEditorTheme,
-  editorThemes,
-}: ThemeSelectorProps) {
+export default function ThemeSelector() {
+  const {
+    themeSelectorOpen: open,
+    setThemeSelectorOpen: setOpen,
+    editor,
+    editorTheme,
+    setEditorTheme,
+    editorThemes,
+  } = useAppStore();
+
+  useEffect(() => {
+    if (!editor) return;
+
+    if (!open) {
+      setTimeout(() => {
+        editor.focus();
+      }, 0);
+    }
+  }, [editor, open]);
+
   return (
     <Select
       open={open}
