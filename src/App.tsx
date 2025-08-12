@@ -5,6 +5,10 @@ import ScriptSelector from "@/components/ScriptSelector";
 import "./App.css";
 import ThemeSelector from "@/components/ThemeSelector.tsx";
 import { cn } from "@/lib/utils.ts";
+import { Button } from "@/components/ui/button.tsx";
+import { customCodeTemplate, runCustomScript } from "@/lib/customCode.ts";
+import { getState } from "@/lib/scriptState.ts";
+import { Eye, EyeOff, Play, RefreshCw } from "lucide-react";
 
 function App() {
   const editorRef =
@@ -40,6 +44,11 @@ function App() {
   );
   const [info, setInfo] = useState<string>("Ready");
   const [isError, setIsError] = useState<boolean>(false);
+  const [customCode, setCustomCode] = useState<string | undefined>(
+    localStorage.getItem("customCode") || "",
+  );
+  const [customCodeEditorOpen, setCustomCodeEditorOpen] =
+    useState<boolean>(false);
 
   function handleEditorMount(
     editor: import("monaco-editor").editor.IStandaloneCodeEditor,
@@ -81,6 +90,10 @@ function App() {
   }, [code]);
 
   useEffect(() => {
+    localStorage.setItem("customCode", customCode || "");
+  }, [customCode]);
+
+  useEffect(() => {
     localStorage.setItem("editorLanguage", editorLanguage);
   }, [editorLanguage]);
 
@@ -109,21 +122,68 @@ function App() {
   return (
     <>
       <main className="h-full flex flex-col gap-4">
-        <div className="flex-1 flex border">
-          <Editor
-            height="100%"
-            onMount={handleEditorMount}
-            language={editorLanguage}
-            value={code}
-            onChange={setCode}
-            theme={actualTheme}
-            options={{
-              renderWhitespace: "all",
-              useTabStops: false,
-              tabSize: 2,
-              insertSpaces: false,
+        <div className="flex items-center justify-end gap-2">
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => setCustomCodeEditorOpen(!customCodeEditorOpen)}
+          >
+            {customCodeEditorOpen ? <EyeOff /> : <Eye />}
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => {
+              const ret = confirm(
+                "Are you sure you want to reset the custom code? This will overwrite any changes.",
+              );
+              if (ret) {
+                setCustomCode(customCodeTemplate);
+              }
             }}
-          />
+          >
+            <RefreshCw />
+          </Button>
+          <Button
+            size="sm"
+            onClick={() => {
+              if (!editorRef.current || !customCode) return;
+
+              runCustomScript(
+                customCode,
+                getState(editorRef.current, setMessage),
+              );
+            }}
+          >
+            <Play />
+          </Button>
+        </div>
+        <div className="flex-1 flex border">
+          <div className={cn(customCodeEditorOpen ? "w-1/2" : "w-full")}>
+            <Editor
+              height="100%"
+              onMount={handleEditorMount}
+              language={editorLanguage}
+              value={code}
+              onChange={setCode}
+              theme={actualTheme}
+              options={{
+                renderWhitespace: "all",
+                useTabStops: false,
+                tabSize: 2,
+                insertSpaces: false,
+              }}
+            />
+          </div>
+          <div className={cn(customCodeEditorOpen ? "w-1/2" : "w-0")}>
+            <Editor
+              height="100%"
+              language="javascript"
+              value={customCode}
+              onChange={setCustomCode}
+              theme={actualTheme}
+            />
+          </div>
         </div>
         <div className="flex items-center justify-between gap-2">
           <output
