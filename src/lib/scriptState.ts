@@ -1,4 +1,4 @@
-type State = {
+export type State = {
   fullText: string;
   selection: string;
   text: string;
@@ -7,57 +7,10 @@ type State = {
   postError: (msg: string) => void;
 };
 
-type Script = {
-  api: number;
-  name: string;
-  description: string;
-  author: string;
-  icon: string;
-  tags: string[];
-  main: (state: State) => void;
-};
-
-export const scriptsRegistry: Script[] = [];
-
-function parseMetadata(fnString: string) {
-  const match = fnString.match(/\/\*\*([\s\S]*?)\*\*\//);
-  if (!match) return null;
-
-  return JSON.parse(match[1]);
-}
-
-let loaded = false;
-
-export async function loadScripts() {
-  if (loaded) return;
-
-  loaded = true;
-
-  const files = import.meta.glob("@/scripts/*.js", { as: "raw" });
-
-  for (const path in files) {
-    try {
-      const rawText = (await files[path]()) as string;
-      const metadata = parseMetadata(rawText);
-      if (!metadata) continue;
-      const module = await import(path);
-
-      scriptsRegistry.push({
-        ...metadata,
-        main: module.main,
-      });
-    } catch (e) {
-      console.error(`Failed to parse metadata for ${path}:`, e);
-    }
-  }
-
-  scriptsRegistry.sort((a, b) => a.name.localeCompare(b.name));
-}
-
 export function getState(
   editor: import("monaco-editor").editor.IStandaloneCodeEditor,
   setInfoMessage: (msg: string, isError?: boolean) => void,
-) {
+): State {
   return {
     get fullText() {
       return editor.getValue() ?? "";

@@ -11,12 +11,4 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  build: {
-    rollupOptions: {
-      output: {
-        // Keep chunk files without hash
-        chunkFileNames: "src/scripts/[name].js",
-      },
-    },
-  },
 });
