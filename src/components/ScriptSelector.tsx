@@ -171,7 +171,7 @@ function ScriptGroup({
             {script.isSuggested && <span className="text-lg">⭐</span>}
             {script.name}
           </span>
-          <span className="ml-auto text-gray-500">
+          <span className="ml-auto text-gray-500 dark:text-gray-400">
             {script.isSuggested ? script.suggestionReasons : script.description}
           </span>
         </CommandItem>

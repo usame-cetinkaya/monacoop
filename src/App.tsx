@@ -17,9 +17,9 @@ function App() {
   const [editorLanguage, setEditorLanguage] = useState(
     localStorage.getItem("editorLanguage") || "javascript",
   );
-  const editorThemes = ["vs", "vs-dark", "hc-black"];
+  const editorThemes = ["system", "vs", "vs-dark"];
   const [editorTheme, setEditorTheme] = useState(
-    localStorage.getItem("editorTheme") || "vs",
+    localStorage.getItem("editorTheme") || "system",
   );
   const [code, setCode] = useState<string | undefined>(
     localStorage.getItem("code") || "",
@@ -76,7 +76,7 @@ function App() {
 
   return (
     <>
-      <main className=" h-full flex flex-col gap-4">
+      <main className="h-full flex flex-col gap-4">
         <div className="flex-1 flex border">
           <Editor
             height="100%"
@@ -95,7 +95,12 @@ function App() {
         </div>
         <div className="flex items-center justify-between gap-2">
           <output
-            className={cn("flex-1", isError ? "text-red-500" : "text-gray-700")}
+            className={cn(
+              "flex-1",
+              isError
+                ? "text-red-500 dark:text-red-400"
+                : "text-gray-700 dark:text-gray-300",
+            )}
           >
             {info}
           </output>
