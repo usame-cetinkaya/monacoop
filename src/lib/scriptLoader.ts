@@ -37,7 +37,7 @@ export async function loadScripts() {
 
   for (const path in files) {
     try {
-      const rawText = await files[path]();
+      const rawText = (await files[path]()) as string;
       const metadata = parseMetadata(rawText);
       if (!metadata) continue;
       const module = await import(path);
