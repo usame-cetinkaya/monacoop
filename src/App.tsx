@@ -37,6 +37,10 @@ function App() {
       setScriptSelectorOpen(true);
     });
 
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyJ, () => {
+      setLanguageSelectorOpen(true);
+    });
+
     editor.focus();
   }
 
