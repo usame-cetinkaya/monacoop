@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button.tsx";
-import { Eye, EyeOff, Play, RefreshCw } from "lucide-react";
+import { FileCode2, PanelRightClose, Play, RefreshCw } from "lucide-react";
 import { useAppStore } from "@/store/appStore";
 import { runCustomScript } from "@/lib/customCode.ts";
 import { getState } from "@/lib/scriptState.ts";
@@ -36,14 +36,18 @@ export default function ToolbarActions() {
         variant="outline"
         onClick={() => setCustomCodeEditorOpen(!customCodeEditorOpen)}
       >
-        {customCodeEditorOpen ? <EyeOff /> : <Eye />}
+        {customCodeEditorOpen ? <PanelRightClose /> : <FileCode2 />}
       </Button>
-      <Button size="sm" variant="outline" onClick={handleResetCustomCode}>
-        <RefreshCw />
-      </Button>
-      <Button size="sm" onClick={handleRunScript}>
-        <Play />
-      </Button>
+      {customCodeEditorOpen && (
+        <>
+          <Button size="sm" variant="outline" onClick={handleResetCustomCode}>
+            <RefreshCw />
+          </Button>
+          <Button size="sm" onClick={handleRunScript}>
+            <Play />
+          </Button>
+        </>
+      )}
     </div>
   );
 }

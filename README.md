@@ -7,13 +7,18 @@ Uses [Monaco React](https://github.com/suren-atoyan/monaco-react) for the script
 Language, theme, editor data and custom scripts are auto-saved to local storage.
 
 ## Keyboard Shortcuts
-- ⌘ K: Open script selector
-- ⌘ L: Open language selector for syntax highlighting
-- ⌘ J: Open theme selector
+| Shortcut | Description                                    |
+|----------|------------------------------------------------|
+| ⌘ K      | Open script selector                           |
+| ⌘ L      | Open language selector for syntax highlighting |
+| ⌘ J      | Open theme selector                            |
 
 ## Custom Script
-- <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWV5ZS1pY29uIGx1Y2lkZS1leWUiPjxwYXRoIGQ9Ik0yLjA2MiAxMi4zNDhhMSAxIDAgMCAxIDAtLjY5NiAxMC43NSAxMC43NSAwIDAgMSAxOS44NzYgMCAxIDEgMCAwIDEgMCAuNjk2IDEwLjc1IDEwLjc1IDAgMCAxLTE5Ljg3NiAwIi8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMyIvPjwvc3ZnPg==">: Show/hide custom script editor
-- <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXJlZnJlc2gtY2N3LWljb24gbHVjaWRlLXJlZnJlc2gtY2N3Ij48cGF0aCBkPSJNMjEgMTJhOSA5IDAgMCAwLTktOSA5Ljc1IDkuNzUgMCAwIDAtNi43NCAyLjc0TDMgOCIvPjxwYXRoIGQ9Ik0zIDN2NWg1Ii8+PHBhdGggZD0iTTMgMTJhOSA5IDAgMCAwIDkgOSA5Ljc1IDkuNzUgMCAwIDAgNi43NC0yLjc0TDIxIDE2Ii8+PHBhdGggZD0iTTE2IDE2aDV2NSIvPjwvc3ZnPg==">: Reset custom script
-- <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXBsYXktaWNvbiBsdWNpZGUtcGxheSI+PHBhdGggZD0iTTUgNWEyIDIgMCAwIDEgMy4wMDgtMS43MjhsMTEuOTk3IDYuOTk4YTIgMiAwIDAgMSAuMDAzIDMuNDU4bC0xMiA3QTIgMiAwIDAgMSA1IDE5eiIvPjwvc3ZnPg==">: Run custom script
+| Button                             | Description               |
+|------------------------------------|---------------------------|
+| ![](/assets/file-code-2.svg)       | Show custom script editor |
+| ![](/assets/panel-right-close.svg) | Hide custom script editor |
+| ![](/assets/refresh-cw.svg)        | Reset custom script       |
+| ![](/assets/play.svg)              | Run custom script         |
 
 See the [Boop custom script documentation](https://github.com/IvanMathy/Boop/blob/main/Boop/Documentation/CustomScripts.md) for more information on how to write scripts.
