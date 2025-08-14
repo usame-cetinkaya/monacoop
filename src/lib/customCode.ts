@@ -1,6 +1,22 @@
 import type { State } from "@/lib/scriptState.ts";
 
-export const customCodeTemplate = `/**
+export const welcomeMessage = `
+# React Boop
+
+Port of [Ray Boop] to React, which is a port of [Boop] to Raycast, which is a scriptable scratchpad for developers.
+
+Uses [Monaco React] for the editor, and supports syntax highlighting for multiple languages.
+
+Language, theme, editor data and custom scripts are auto-saved to local storage.
+
+## Keyboard Shortcuts
+- ⌘+K Open script selector
+- ⌘+L Open language selector for syntax highlighting
+- ⌘+J Open theme selector
+`.trim();
+
+export const customCodeTemplate = `
+/**
  * @typedef {Object} State
  * @property {string} fullText - The complete text content.
  * @property {string} selection - The currently selected text.
@@ -17,7 +33,7 @@ function main(state) {
 \tconst text = state.text;
 \tstate.text = text;
 }
-`;
+`.trim();
 
 export function runCustomScript(customCode: string, state: State): void {
   try {

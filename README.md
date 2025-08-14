@@ -1,6 +1,6 @@
 # React Boop
 
-Port of [Ray Boop](https://github.com/raycast/extensions/tree/7f9c1daa7d7bfd080292fd576d5a27ce439f06ba/extensions/ray-boop) to React, which is a port of [Boop](https://github.com/IvanMathy/Boop/), which is a scriptable scratchpad for developers.
+Port of [Ray Boop](https://github.com/raycast/extensions/tree/7f9c1daa7d7bfd080292fd576d5a27ce439f06ba/extensions/ray-boop) to React, which is a port of [Boop](https://github.com/IvanMathy/Boop/) to Raycast, which is a scriptable scratchpad for developers.
 
 Uses [Monaco React](https://github.com/suren-atoyan/monaco-react) for the script editor, and supports syntax highlighting for multiple languages.
 
@@ -21,4 +21,4 @@ Language, theme, editor data and custom scripts are auto-saved to local storage.
 | ![](/assets/refresh-cw.svg)        | Reset custom script       |
 | ![](/assets/play.svg)              | Run custom script         |
 
-See the [Boop custom script documentation](https://github.com/IvanMathy/Boop/blob/main/Boop/Documentation/CustomScripts.md) for more information on how to write scripts.
+See [Boop custom script documentation](https://github.com/IvanMathy/Boop/blob/main/Boop/Documentation/CustomScripts.md) for more information on how to write scripts.

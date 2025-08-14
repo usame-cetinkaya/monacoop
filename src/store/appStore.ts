@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { customCodeTemplate } from "@/lib/customCode.ts";
+import { customCodeTemplate, welcomeMessage } from "@/lib/customCode.ts";
 
 interface AppState {
   editor: import("monaco-editor").editor.IStandaloneCodeEditor | null;
@@ -41,7 +41,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   scriptSelectorOpen: false,
   themeSelectorOpen: false,
   editorLanguages: [],
-  editorLanguage: localStorage.getItem("editorLanguage") || "javascript",
+  editorLanguage: localStorage.getItem("editorLanguage") || "markdown",
   editorTheme: localStorage.getItem("editorTheme") || "system",
   editorThemes: {
     System: "system",
@@ -49,7 +49,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     Dark: "vs-dark",
   },
   systemPrefersDark: window.matchMedia("(prefers-color-scheme: dark)").matches,
-  code: localStorage.getItem("code") || "",
+  code: localStorage.getItem("code") || welcomeMessage,
   info: "Ready",
   isError: false,
   customCode: localStorage.getItem("customCode") || customCodeTemplate,
