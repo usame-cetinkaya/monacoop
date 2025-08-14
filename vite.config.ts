@@ -11,4 +11,26 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          // Extract script files into separate chunks with stable names
+          if (id.includes('/src/scripts/') && id.endsWith('.js')) {
+            const scriptName = path.basename(id, '.js');
+            return `scripts/${scriptName}`;
+          }
+          
+          // Vendor chunks for node_modules
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        },
+        // Use consistent naming for chunks to enable long-term caching
+        chunkFileNames: '[name]-[hash].js',
+        assetFileNames: '[name]-[hash][extname]',
+        entryFileNames: '[name]-[hash].js',
+      },
+    },
+  },
 });
