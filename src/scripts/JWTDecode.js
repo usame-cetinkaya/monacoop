@@ -17,8 +17,8 @@ export function main(input) {
     return;
   }
 
-  var header = Buffer.from(jwtParts[0], "base64").toString("utf8");
-  var payload = Buffer.from(jwtParts[1], "base64").toString("utf8");
+  var header = atob(jwtParts[0]);
+  var payload = atob(jwtParts[1]);
   var signature = jwtParts[2];
 
   try {

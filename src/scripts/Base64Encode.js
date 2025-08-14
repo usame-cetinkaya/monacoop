@@ -10,5 +10,5 @@
 **/
 
 export function main(input) {
-  input.text = Buffer.from(input.text, "utf8").toString("base64");
+  input.text = btoa(input.text);
 }

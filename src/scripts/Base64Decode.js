@@ -10,5 +10,5 @@
 **/
 
 export function main(input) {
-  input.text = Buffer.from(input.text, "base64").toString("utf8");
+  input.text = atob(input.text);
 }
