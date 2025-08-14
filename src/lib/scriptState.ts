@@ -16,7 +16,17 @@ export function getState(
       return editor.getValue() ?? "";
     },
     set fullText(value) {
-      editor.setValue(value);
+      const model = editor.getModel();
+      if (!model) return;
+      editor.pushUndoStop();
+      editor.executeEdits("script", [
+        {
+          range: model.getFullModelRange(),
+          text: value,
+          forceMoveMarkers: true,
+        },
+      ]);
+      editor.pushUndoStop();
     },
     get selection() {
       const selection = editor?.getSelection();
@@ -26,9 +36,11 @@ export function getState(
     set selection(value) {
       const selection = editor.getSelection();
       if (!selection) return;
-      editor.executeEdits("", [
+      editor.pushUndoStop();
+      editor.executeEdits("script", [
         { range: selection, text: value, forceMoveMarkers: true },
       ]);
+      editor.pushUndoStop();
     },
     get text() {
       const sel = this.selection || "";
@@ -45,9 +57,11 @@ export function getState(
     insert(str: string) {
       const selection = editor.getSelection();
       if (!selection) return;
-      editor.executeEdits("", [
+      editor.pushUndoStop();
+      editor.executeEdits("script", [
         { range: selection, text: str, forceMoveMarkers: true },
       ]);
+      editor.pushUndoStop();
     },
     postInfo(msg: string) {
       setInfoMessage(msg);
