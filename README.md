@@ -1,4 +1,4 @@
-# React Boop
+# ⌘ React Boop
 
 Port of [Ray Boop](https://github.com/raycast/extensions/tree/7f9c1daa7d7bfd080292fd576d5a27ce439f06ba/extensions/ray-boop) to React, which is a port of [Boop](https://github.com/IvanMathy/Boop/) to Raycast, which is a scriptable scratchpad for developers.
 
